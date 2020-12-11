@@ -39,14 +39,19 @@ def main():
     # get the number of histograms
     nEntries = directory.GetListOfKeys().GetEntries()
 
+    
+
     # loop over histograms in the input ROOT file
     for h in range(0, nEntries):
         hName = directory.GetListOfKeys()[h].GetName()
-        mass = int(hName.split('_')[3].replace('M',''))
+        #print(hName)
+        mass = int(hName.split('_')[-2].replace('M',''))
 
         if args.debug: print "Extracting shapes for m =", mass, "GeV..."
 
         histo = directory.Get(hName)
+
+        #print(histo)
 
         bincontents = []
 
