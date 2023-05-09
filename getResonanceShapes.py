@@ -238,7 +238,7 @@ def main():
 
        histname = "h_" + args.final_state + "_" + str(int(mass))
 
-       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 14000, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
+       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 3500, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
        #h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 14000, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", 2800, 0, 14000) )
        h_shape.SetXTitle("DiPhotonMass [GeV]")
        h_shape.SetYTitle("Probability")
