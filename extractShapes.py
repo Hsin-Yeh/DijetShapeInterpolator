@@ -44,7 +44,7 @@ def main():
     # loop over histograms in the input ROOT file
     for h in range(0, nEntries):
         hName = directory.GetListOfKeys()[h].GetName()
-        #print(hName)
+        print(hName)
         mass = int(hName.split('_')[-2].replace('M',''))
 
         if args.debug: print "Extracting shapes for m =", mass, "GeV..."
