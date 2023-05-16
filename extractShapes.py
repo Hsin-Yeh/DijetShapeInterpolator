@@ -65,17 +65,17 @@ def main():
 
         shapes[mass] = normbincontents.tolist()
 
-    if args.debug: print ""
-    if args.debug: print "Extracted shapes:"
-    if args.debug: print ""
-    print "shapes = {\n"
-    for key, value in sorted(shapes.items()):
-        print("  {} : {},".format(key, value))
-        print ""
-    print "}"
-    print ""
-    print "binxcenters =", binxcenters
-    print ""
+    # if args.debug: print ""
+    # if args.debug: print "Extracted shapes:"
+    # if args.debug: print ""
+    # print "shapes = {\n"
+    # for key, value in sorted(shapes.items()):
+    #     print("  {} : {},".format(key, value))
+    #     print ""
+    # print "}"
+    # print ""
+    # print "binxcenters =", binxcenters
+    # print ""
 
 
 if __name__ == '__main__':
