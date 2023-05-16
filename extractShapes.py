@@ -38,6 +38,7 @@ def main():
 
     # get the number of histograms
     nEntries = directory.GetListOfKeys().GetEntries()
+    print(nEntries)
 
     
 
