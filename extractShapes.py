@@ -26,6 +26,7 @@ def main():
 
     shapes = {}
     binxcenters = []
+    print("hihihihih")
 
     # import ROOT stuff
     from ROOT import TFile, TH1F, TH1D
