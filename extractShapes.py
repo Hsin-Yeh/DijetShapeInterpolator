@@ -38,13 +38,11 @@ def main():
 
     # get the number of histograms
     nEntries = directory.GetListOfKeys().GetEntries()
-    print(nEntries)
 
 
     # loop over histograms in the input ROOT file
     for h in range(0, nEntries):
         hName = directory.GetListOfKeys()[h].GetName()
-        print(hName)
         mass = int(hName.split('_')[-2].replace('M',''))
 
         if args.debug: print "Extracting shapes for m =", mass, "GeV..."
@@ -65,17 +63,17 @@ def main():
 
         shapes[mass] = normbincontents.tolist()
 
-    # if args.debug: print ""
-    # if args.debug: print "Extracted shapes:"
-    # if args.debug: print ""
-    # print "shapes = {\n"
-    # for key, value in sorted(shapes.items()):
-    #     print("  {} : {},".format(key, value))
-    #     print ""
-    # print "}"
-    # print ""
-    # print "binxcenters =", binxcenters
-    # print ""
+    if args.debug: print ""
+    if args.debug: print "Extracted shapes:"
+    if args.debug: print ""
+    print "shapes = {\n"
+    for key, value in sorted(shapes.items()):
+        print("  {} : {},".format(key, value))
+        print ""
+    print "}"
+    print ""
+    print "binxcenters =", binxcenters
+    print ""
 
 
 if __name__ == '__main__':
