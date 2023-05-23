@@ -121,7 +121,7 @@ def main():
 
     parser.add_argument("--storeCDF", dest="storeCDF", default=False, action="store_true", help="Also store a 1-GeV-binned CDF")
 
-    mass_group = parser.add_mutually_exclusive_group(required=True)
+    mass_group = parser.add_mutually_exclusive_group(required=False)
     mass_group.add_argument("--mass",
                             type=int,
                             nargs = '*',
