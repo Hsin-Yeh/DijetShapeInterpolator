@@ -23,7 +23,7 @@ class ShapeStorage:
                 print "** ERROR: ** Input shape for m =", key, "GeV not normalized. Make sure the input shapes are normalized to unity. Aborting."
                 sys.exit(3)
             nbins.append(len(self.shapes[key]))
-            print (key, len(self.shapes[key]))
+            print (key, shapes[key]))
         if len(set(nbins)) > 1:
            print "** ERROR: ** Numbers of bins for different input shapes and the number of bin centers are not all identical. Aborting."
            sys.exit(2)
