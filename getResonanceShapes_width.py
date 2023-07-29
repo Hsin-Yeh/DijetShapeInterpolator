@@ -144,7 +144,7 @@ def main():
     # initialize shape storage
     shapes_narrow = ShapeStorage(input_shapes_narrow.shapes,input_shapes_narrow.binxcenters)
     shapes_wide = ShapeStorage(input_shapes_wide.shapes,input_shapes_wide.binxcenters)
-
+    print shapes_narrow
     #shapes = ShapeStorage(shapes,binxcenters)
 
     # mass points for which resonance shapes will be produced
