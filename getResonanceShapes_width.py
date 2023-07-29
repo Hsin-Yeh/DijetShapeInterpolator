@@ -23,6 +23,7 @@ class ShapeStorage:
                 print "** ERROR: ** Input shape for m =", key, "GeV not normalized. Make sure the input shapes are normalized to unity. Aborting."
                 sys.exit(3)
             nbins.append(len(self.shapes[key]))
+            print (key, len(self.shapes[key]))
         if len(set(nbins)) > 1:
            print "** ERROR: ** Numbers of bins for different input shapes and the number of bin centers are not all identical. Aborting."
            sys.exit(2)
@@ -144,7 +145,6 @@ def main():
     # initialize shape storage
     shapes_narrow = ShapeStorage(input_shapes_narrow.shapes,input_shapes_narrow.binxcenters)
     shapes_wide = ShapeStorage(input_shapes_wide.shapes,input_shapes_wide.binxcenters)
-    print shapes_narrow
     #shapes = ShapeStorage(shapes,binxcenters)
 
     # mass points for which resonance shapes will be produced
