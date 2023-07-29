@@ -103,13 +103,13 @@ def main():
 
     width_group = parser.add_mutually_exclusive_group(required=False)
     width_group.add_argument("--width",
-                            type=int,
+                            type=float,
                             nargs = '*',
                             default = 0.05,
                             help="Width can be specified as a single value or a whitespace separated list (default: %(default)s)"
                             )
     width_group.add_argument("--widthrange",
-                            type=int,
+                            type=float,
                             nargs = 3,
                             help="Define a range of widthes to be produced. Format: min max step",
                             metavar = ('MIN', 'MAX', 'STEP')
