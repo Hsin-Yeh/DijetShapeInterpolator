@@ -187,7 +187,7 @@ def main():
        h_shape.SetYTitle("Probability")
 
        # interpolate resonance shape
-       LineShapePDF(shape_narrow, shape_wide, width, args.mass, h_shape);
+       LineShapePDF(shapes_narrow, shapes_wide, width, args.mass, h_shape);
 
        output.cd()
        h_shape.Write()
