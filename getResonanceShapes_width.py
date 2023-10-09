@@ -176,7 +176,7 @@ def main():
 
     for width in widths:
 
-       print "Producing %s shape for width = %f GeV"%(args.final_state, float(width))
+       print "Producing %s shape for width = %f %"%(args.final_state, float(width))
 
        histname = "h_" + args.final_state + "_" + str(float(width))
 
