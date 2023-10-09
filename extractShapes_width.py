@@ -11,9 +11,17 @@ def main():
     # input parameters
     parser = ArgumentParser(description='Script extracting resonance shapes from an input ROOT file and printing them in a format used by the interpolation code',epilog=usage)
 
-    parser.add_argument("-i", "--input_file", dest="input_file", required=True,
-                        help="Input file",
-                        metavar="INPUT_FILE")
+    parser.add_argument("-n", "--narrow_input_file", dest="narrow_input_file", required=True,
+                        help="Narrow Input file",
+                        metavar="NARROW_INPUT_FILE")
+
+    parser.add_argument("-m", "--medium_input_file", dest="medium_input_file", required=True,
+                        help="Medium Input file",
+                        metavar="MEDIUM_INPUT_FILE")
+
+    parser.add_argument("-w", "--wide_input_file", dest="wide_input_file", required=True,
+                        help="Wide Input file",
+                        metavar="WIDE_INPUT_FILE")
 
     parser.add_argument("-d", "--dir", dest="dir",
                         default='',
@@ -24,44 +32,42 @@ def main():
 
     args = parser.parse_args()
 
+    input_files = {}
     shapes = {}
     binxcenters = []
 
     # import ROOT stuff
     from ROOT import TFile, TH1F, TH1D
     # open input file
-    input_file = TFile(args.input_file)
+    input_files[0] = TFile(args.narrow_input_file)
+    input_files[1] = TFile(args.medium_input_file)
+    input_files[2] = TFile(args.wide_input_file)
 
-    directory = input_file
-    if args.dir != '':
-        directory = input_file.Get(args.dir)
-
-    # get the number of histograms
     nEntries = directory.GetListOfKeys().GetEntries()
-
 
     # loop over histograms in the input ROOT file
     for h in range(0, nEntries):
-        hName = directory.GetListOfKeys()[h].GetName()
-        width = float(hName.split('_')[-2])
+        hName = input_files[0].GetListOfKeys()[h].GetName()
+        mass = int(hName.split('_')[2])
+        if args.debug: print "Extracting shapes for m =", mass, "GeV..."
 
-        if args.debug: print "Extracting shapes for width =", width
+        for iwidth, input_file in enumerate(input_files):
+            histo = input_file.Get(hName)
 
-        histo = directory.Get(hName)
+            if args.debug: print "Extracting shapes for width =", iwidth
 
-        #print(histo)
+            bincontents = []
 
-        bincontents = []
+            for i in range(1,histo.GetNbinsX()+1):
+                bincontents.append(histo.GetBinContent(i))
+                if len(binxcenters) < histo.GetNbinsX():
+                    binxcenters.append(histo.GetBinCenter(i))
 
-        for i in range(1,histo.GetNbinsX()+1):
-            bincontents.append(histo.GetBinContent(i))
-            if len(binxcenters) < histo.GetNbinsX():
-                binxcenters.append(histo.GetBinCenter(i))
+            normbincontents = np.array(bincontents)
+            normbincontents = normbincontents/np.sum(normbincontents)
 
-        normbincontents = np.array(bincontents)
-        normbincontents = normbincontents/np.sum(normbincontents)
-
-        shapes[width] = normbincontents.tolist()
+            key = str(mass) + '_' + str(iwidth)
+            shapes[key] = normbincontents.tolist()
 
     if args.debug: print ""
     if args.debug: print "Extracted shapes:"
