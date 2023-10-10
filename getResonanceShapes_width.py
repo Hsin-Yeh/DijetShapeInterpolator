@@ -2,7 +2,7 @@
 
 # filename="InputShapes_RSGravitonToGammaGamma_EBEB_2016"
 # mass=3000
-# python ../../getResonanceShapes_width.py -i ${filename}_${mass}GeV.py -f gg -o width_${filename}_${mass}GeV.root
+# python ../../getResonanceShapes_width.py -i ${filename}_${mass}GeV.py -m ${mass} -f gg -o width_${filename}_${mass}GeV.root
 
 import sys, os
 from argparse import ArgumentParser
@@ -192,7 +192,7 @@ def main():
 
        h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000)
        # interpolate resonance shape
-       LineShapePDF(shapes, mass, width, h_shape);
+       LineShapePDF(shapes, args.mass, width, h_shape);
 
        h_shape.SetXTitle("DiPhotonMass [GeV]")
        h_shape.SetYTitle("Probability")
