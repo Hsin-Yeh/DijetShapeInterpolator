@@ -23,6 +23,10 @@ def main():
                         help="Wide Input file",
                         metavar="WIDE_INPUT_FILE")
 
+    parser.add_argument("--mass", dest="mass", required=True,
+                        help="Interpolate mass",
+                        metavar="INTERPOLATE_MASS")
+
     parser.add_argument("-d", "--dir", dest="dir",
                         default='',
                         help="Path to TDirectory containing histograms (This parameter is optional (default: %(default)s)",
@@ -46,28 +50,27 @@ def main():
     nEntries = input_files[0].GetListOfKeys().GetEntries()
 
     # loop over histograms in the input ROOT file
-    for h in range(0, nEntries):
-        hName = input_files[0].GetListOfKeys()[h].GetName()
-        mass = int(hName.split('_')[2])
-        if args.debug: print "Extracting shapes for m =", mass, "GeV..."
+    mass = args.mass
+    hName = "h_gg_" + mass
+    if args.debug: print "Extracting shapes for m =", mass, "GeV..."
 
-        for iwidth, input_file in enumerate(input_files):
-            histo = input_files[iwidth].Get(hName)
+    for iwidth, input_file in enumerate(input_files):
+        histo = input_files[iwidth].Get(hName)
 
-            if args.debug: print "Extracting shapes for width =", iwidth
+        if args.debug: print "Extracting shapes for width =", iwidth
 
-            bincontents = []
+        bincontents = []
 
-            for i in range(1,histo.GetNbinsX()+1):
-                bincontents.append(histo.GetBinContent(i))
-                if len(binxcenters) < histo.GetNbinsX():
-                    binxcenters.append(histo.GetBinCenter(i))
+        for i in range(1,histo.GetNbinsX()+1):
+            bincontents.append(histo.GetBinContent(i))
+            if len(binxcenters) < histo.GetNbinsX():
+                binxcenters.append(histo.GetBinCenter(i))
 
-            normbincontents = np.array(bincontents)
-            normbincontents = normbincontents/np.sum(normbincontents)
+        normbincontents = np.array(bincontents)
+        normbincontents = normbincontents/np.sum(normbincontents)
 
-            key = str(mass) + '_' + str(iwidth)
-            shapes[key] = normbincontents.tolist()
+        key = str(mass) + '_' + str(iwidth)
+        shapes[key] = normbincontents.tolist()
 
     if args.debug: print ""
     if args.debug: print "Extracted shapes:"
