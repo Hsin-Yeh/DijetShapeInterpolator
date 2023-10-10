@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+# narrow_file="../finebinning/ResonanceShapes_InputShapes_RSGravitonToGammaGamma_kMpl001_EBEB_2016_finebinned.root"
+# medium_file="../finebinning/ResonanceShapes_InputShapes_RSGravitonToGammaGamma_kMpl01_EBEB_2016_finebinned.root"
+# wide_file="../finebinning/ResonanceShapes_InputShapes_RSGravitonToGammaGamma_kMpl02_EBEB_2016_finebinned.root"
+# filename="InputShapes_RSGravitonToGammaGamma_EBEB_2016"
+# mass=600
+# python ../../extractShapes_width.py -n ${narrow_file} -m ${medium_file} -w ${wide_file} --mass ${mass} > ${filename}_${mass}GeV.py
+
 from argparse import ArgumentParser
 import numpy as np
 

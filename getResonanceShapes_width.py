@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# filename="InputShapes_RSGravitonToGammaGamma_EBEB_2016"
+# mass=3000
+# python ../../getResonanceShapes_width.py -i ${filename}_${mass}GeV.py -f gg -o width_${filename}_${mass}GeV.root
+
 import sys, os
 from argparse import ArgumentParser
 from array import array
@@ -110,6 +114,11 @@ def main():
     parser.add_argument("-f", "--final_state", dest="final_state", required=True,
                         help="Final state (e.g. qq, qg, gg)",
                         metavar="FINAL_STATE")
+
+    parser.add_argument("-m", "--mass", dest="mass", required=True,
+                        help="Center Mass",
+                        metavar="MASS")
+
     parser.add_argument("--fineBinning", dest="fineBinning", default=False, action="store_true", help="Use fine, 1-GeV binning")
 
     parser.add_argument("--doWidthInterp", dest="doWidthInterp", default=False, action="store_true", help="Store ratio histos")
@@ -183,7 +192,7 @@ def main():
 
        h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000)
        # interpolate resonance shape
-       LineShapePDF(shapes, 1000, width, h_shape);
+       LineShapePDF(shapes, mass, width, h_shape);
 
        h_shape.SetXTitle("DiPhotonMass [GeV]")
        h_shape.SetYTitle("Probability")
