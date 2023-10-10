@@ -107,10 +107,6 @@ def main():
                         help="Output ROOT file",
                         metavar="OUTPUT_FILE")
 
-    parser.add_argument("-c", "--coup", dest="coup", required=True,
-                        help="Coupling",
-                        metavar="COUPLING")
-
     parser.add_argument("-f", "--final_state", dest="final_state", required=True,
                         help="Final state (e.g. qq, qg, gg)",
                         metavar="FINAL_STATE")
@@ -185,7 +181,7 @@ def main():
 
        histname = "h_" + args.final_state + "_" + str(int(width))
 
-       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
+       h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000)
        # interpolate resonance shape
        LineShapePDF(shapes, mass, width, h_shape);
 
