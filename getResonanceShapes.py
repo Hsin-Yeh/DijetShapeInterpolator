@@ -311,7 +311,7 @@ def main():
        histname = "h_" + args.final_state + "_" + str(int(mass))
 
        if (args.doWidthInterp):
-           h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1000, 0, 2000)
+           h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1000, 0, 2)
            LineShapePDF_forWidthInterpolation(shapes, mass, h_shape)
        else:
            h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
