@@ -43,7 +43,7 @@ def main():
     input_files[1] = TFile(args.medium_input_file)
     input_files[2] = TFile(args.wide_input_file)
 
-    nEntries = directory.GetListOfKeys().GetEntries()
+    nEntries = input_files[0].GetListOfKeys().GetEntries()
 
     # loop over histograms in the input ROOT file
     for h in range(0, nEntries):
