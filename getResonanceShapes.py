@@ -28,6 +28,71 @@ class ShapeStorage:
            sys.exit(2)
 
 
+def LineShapePDF_forWidthInterpolation(shapes, mass, histo):
+    # import ROOT
+    from ROOT import Math
+
+    x = shapes.binxcenters
+    #print(x[0],x[-1])
+    y = np.array([])
+    if mass in shapes.shapes.keys():
+        y = np.array(shapes.shapes[mass])
+    else:
+        input_masses = shapes.shapes.keys()
+        # print(input_masses)
+        min_mass = min(input_masses)
+        max_mass = max(input_masses)
+        ml = mass
+        yl = np.array([])
+        mh = mass
+        yh = np.array([])
+        if mass < min_mass:
+            print "** WARNING: ** Attempting to extrapolate below the lowest input mass. The extrapolated shape(s) might not be reliable."
+            m_temp = input_masses
+            m_temp.sort()
+            ml = m_temp[0]
+            mh = m_temp[1]
+        elif mass > max_mass:
+            print "** WARNING: ** Attempting to extrapolate above the highest input mass. The extrapolated shape(s) might not be reliable."
+            m_temp = input_masses
+            m_temp.sort(reverse=True)
+            ml = m_temp[1]
+            mh = m_temp[0]
+        else:
+            ml = max([ m for m in input_masses if m<mass ])
+            mh = min([ m for m in input_masses if m>mass ])
+        print(ml,mh)
+
+
+        yl = np.array(shapes.shapes[ml])
+        yh = np.array(shapes.shapes[mh])
+
+        y = ((yh - yl)/float(mh-ml))*float(mass - ml) + yl
+        # print(y,yl,yh)
+
+    # define interpolator
+    interpolator = Math.Interpolator(len(x))
+    interpolator.SetData(len(x), array('d',x), array('d',y.tolist()))
+
+    for i in range(1, histo.GetNbinsX()+1):
+        xcenter = histo.GetBinCenter(i)
+        # print(xcenter
+        if xcenter > shapes.binxcenters[0] and xcenter < shapes.binxcenters[-1]:
+
+            xlow = histo.GetXaxis().GetBinLowEdge(i)
+            if xlow < shapes.binxcenters[0]: xlow = shapes.binxcenters[0]
+            xhigh = histo.GetXaxis().GetBinUpEdge(i)
+            if xhigh > shapes.binxcenters[-1]: xhigh = shapes.binxcenters[-1]
+
+            integral = interpolator.Integ(xlow, xhigh)
+            # print(xlow,xhigh,integral)
+            histo.SetBinContent( i, (integral if integral >= 0. else 0.) )
+        else:
+            histo.SetBinContent(i, 0.)
+
+    histo.Scale( 1./histo.Integral() )
+
+
 def LineShapePDF(shapes, mass, histo):
     # import ROOT
     from ROOT import Math
@@ -116,6 +181,8 @@ def main():
                         help="Final state (e.g. qq, qg, gg)",
                         metavar="FINAL_STATE")
     parser.add_argument("--fineBinning", dest="fineBinning", default=False, action="store_true", help="Use fine, 1-GeV binning")
+
+    parser.add_argument("--doWidthInterp", dest="doWidthInterp", default=False, action="store_true", help="Store ratio histos")
 
     parser.add_argument("--storePDF", dest="storePDF", default=False, action="store_true", help="Also store a 1-GeV-binned PDF")
 
@@ -243,14 +310,16 @@ def main():
 
        histname = "h_" + args.final_state + "_" + str(int(mass))
 
-       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
-       #h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 14000, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", 2800, 0, 14000) )
+       if (args.doWidthInterp):
+           h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1000, 0, 2000)
+           LineShapePDF_forWidthInterpolation(shapes, mass, h_shape)
+       else:
+           h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
+           # interpolate resonance shape
+           LineShapePDF(shapes, mass, h_shape);
+
        h_shape.SetXTitle("DiPhotonMass [GeV]")
        h_shape.SetYTitle("Probability")
-
-       # interpolate resonance shape
-       LineShapePDF(shapes, mass, h_shape);
-
        output.cd()
        h_shape.Write()
 

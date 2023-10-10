@@ -69,8 +69,11 @@ def main():
         normbincontents = np.array(bincontents)
         normbincontents = normbincontents/np.sum(normbincontents)
 
-        key = str(mass) + '_' + str(iwidth)
-        shapes[key] = normbincontents.tolist()
+        if iwdith == 0: width = 0.00014
+        elif iwdith == 1: width = 0.014
+        elif iwdith == 2: width = 0.056
+
+        shapes[width] = normbincontents.tolist()
 
     if args.debug: print ""
     if args.debug: print "Extracted shapes:"
