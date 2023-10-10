@@ -118,21 +118,21 @@ def main():
 
     parser.add_argument("--storeCDF", dest="storeCDF", default=False, action="store_true", help="Also store a 1-GeV-binned CDF")
 
-    mass_group = parser.add_mutually_exclusive_group(required=False)
-    mass_group.add_argument("--mass",
+    width_group = parser.add_mutually_exclusive_group(required=False)
+    width_group.add_argument("--width",
                             type=int,
                             nargs = '*',
                             default = 1000,
-                            help="Mass can be specified as a single value or a whitespace separated list (default: %(default)s)"
+                            help="Width can be specified as a single value or a whitespace separated list (default: %(default)s)"
                             )
-    mass_group.add_argument("--massrange",
+    width_group.add_argument("--widthrange",
                             type=int,
                             nargs = 3,
-                            help="Define a range of masses to be produced. Format: min max step",
+                            help="Define a range of widthes to be produced. Format: min max step",
                             metavar = ('MIN', 'MAX', 'STEP')
                             )
-    mass_group.add_argument("--masslist",
-                            help = "List containing mass information"
+    width_group.add_argument("--widthlist",
+                            help = "List containing width information"
                             )
 
     args = parser.parse_args()
