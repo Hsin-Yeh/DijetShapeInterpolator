@@ -69,9 +69,9 @@ def main():
         normbincontents = np.array(bincontents)
         normbincontents = normbincontents/np.sum(normbincontents)
 
-        if iwdith == 0: width = 0.00014
-        elif iwdith == 1: width = 0.014
-        elif iwdith == 2: width = 0.056
+        if iwidth == 0: width = 0.00014
+        elif iwidth == 1: width = 0.014
+        elif iwidth == 2: width = 0.056
 
         shapes[width] = normbincontents.tolist()
 
