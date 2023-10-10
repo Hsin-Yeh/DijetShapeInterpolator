@@ -52,7 +52,7 @@ def main():
         if args.debug: print "Extracting shapes for m =", mass, "GeV..."
 
         for iwidth, input_file in enumerate(input_files):
-            histo = input_file.Get(hName)
+            histo = input_files[iwidth].Get(hName)
 
             if args.debug: print "Extracting shapes for width =", iwidth
 
