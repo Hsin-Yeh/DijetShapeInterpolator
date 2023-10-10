@@ -155,17 +155,17 @@ def main():
 
     # initialize shape storage
     shapes = ShapeStorage(input_shapes.shapes,input_shapes.binxcenters)
-    # mass points for which resonance shapes will be produced
+    # width points for which resonance shapes will be produced
     widths = []
 
-    if args.massrange != None:
-        MIN, MAX, STEP = args.massrange
+    if args.widthrange != None:
+        MIN, MAX, STEP = args.widthrange
         widths = range(MIN, MAX+STEP, STEP)
-    elif args.masslist != None:
-        # A mass list was provided
-        print  "Will create mass list according to", args.massdict
-        masslist = __import__(args.masslist.replace(".root.py",""))
-        widths = masslist.widths
+    elif args.widthlist != None:
+        # A width list was provided
+        print  "Will create width list according to", args.widthdict
+        widthlist = __import__(args.widthlist.replace(".root.py",""))
+        widths = widthlist.widths
     else:
         widths = [14, 707, 1400, 3500, 5600]
 
@@ -183,7 +183,7 @@ def main():
 
        h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000)
        # interpolate resonance shape
-       LineShapePDF(shapes, mass, width, h_shape);
+       LineShapePDF(shapes, 1000, width, h_shape);
 
        h_shape.SetXTitle("DiPhotonMass [GeV]")
        h_shape.SetYTitle("Probability")
