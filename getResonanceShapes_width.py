@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # filename="InputShapes_RSGravitonToGammaGamma_EBEB_2016"
-# mass=3000
+# mass=600
 # python ../../getResonanceShapes_width.py -i ${filename}_${mass}GeV.py -m ${mass} -f gg -o width_${filename}_${mass}GeV.root
 
 import sys, os
