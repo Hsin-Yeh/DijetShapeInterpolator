@@ -24,7 +24,7 @@ def main():
                     if (systematic=="nom"): out_filename = 'ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s.root'%(width,cat,year)
                     else: out_filename = 'ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%s.root'%(width,cat,year,systematic)
                     outfile = ROOT.TFile(out_filename, 'RECREATE')
-                    for mass in range(500,5000,100):
+                    for mass in range(600,5000,100):
                         if (systematic=="nom"): in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%iGeV.root'%(cat,year,mass)
                         else: in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%iGeV.root'%(cat,year,systematic,mass)
                         infile = ROOT.TFile(in_filename)
