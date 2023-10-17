@@ -15,7 +15,7 @@ def main():
     cats = ["EBEB","EBEE"]
     years = ["2016","2017","2018"]
     systematics = ["nom","energyScaleStatUp","energyScaleSystUp","energyScaleGainUp","energySigmaUp","energyScaleStatDown","energyScaleSystDown",
-                   "energyScaleGainDown","energySigmaDown","SFScaleUp","SFScaleDown","PuScaleUp","PuScaleDown"]
+                   "energyScaleGainDown","energySigmaDown","SFScaleUp","SFScaleDown","PUScaleUp","PUScaleDown"]
     for year in years:
         for cat in cats:
             for width in widths:
