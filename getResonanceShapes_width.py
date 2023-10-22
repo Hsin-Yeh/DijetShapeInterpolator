@@ -190,7 +190,9 @@ def main():
 
        histname = "h_" + args.final_state + "_" + str(int(width))
 
-       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
+       # h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
+       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries["kMpl001"])-1, array('d',binBoundaries["kMpl001"])) )
+
 
        # interpolate resonance shape
        LineShapePDF(shapes, args.mass, width, h_shape);

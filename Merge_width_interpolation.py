@@ -11,7 +11,7 @@ parser.add_argument('--systematics','-s',default="nom",type=str)
 args = parser.parse_args()
 
 def main():
-    widths = [14, 707, 1400, 3500, 5600]
+    widths = [14, 361, 707, 1054, 1400, 2450, 3500, 4550, 5600]
     cats = ["EBEB","EBEE"]
     years = ["2016","2017","2018"]
     systematics = ["nom","energyScaleStatUp","energyScaleSystUp","energyScaleGainUp","energySigmaUp","energyScaleStatDown","energyScaleSystDown",
@@ -24,7 +24,7 @@ def main():
                     if (systematic=="nom"): out_filename = 'ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s.root'%(width,cat,year)
                     else: out_filename = 'ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%s.root'%(width,cat,year,systematic)
                     outfile = ROOT.TFile(out_filename, 'RECREATE')
-                    for mass in range(600,5000,100):
+                    for mass in range(600,5100,20):
                         if (systematic=="nom"): in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%iGeV.root'%(cat,year,mass)
                         else: in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%iGeV.root'%(cat,year,systematic,mass)
                         infile = ROOT.TFile(in_filename)
