@@ -176,7 +176,7 @@ def main():
         widthlist = __import__(args.widthlist.replace(".root.py",""))
         widths = widthlist.widths
     else:
-        widths = [14, 707, 1400, 3500, 5600]
+        widths = [14, 361, 707, 1054, 1400, 2450, 3500, 4550, 5600]
 
     # sort widths
     widths.sort()
@@ -186,11 +186,12 @@ def main():
 
     for width in widths:
 
-       print "Producing %s shape for width = %i"%(args.final_state, float(width))
+       # print "Producing %s shape for width = %i"%(args.final_state, float(width))
 
        histname = "h_" + args.final_state + "_" + str(int(width))
 
-       h_shape = TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000)
+       h_shape = ( TH1D(histname, args.final_state + " Resonance Shape", 1750, 0, 14000) if args.fineBinning else TH1D(histname, args.final_state + " Resonance Shape", len(binBoundaries[args.coup])-1, array('d',binBoundaries[args.coup])) )
+
        # interpolate resonance shape
        LineShapePDF(shapes, args.mass, width, h_shape);
 
