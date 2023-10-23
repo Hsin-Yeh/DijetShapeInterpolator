@@ -30,8 +30,8 @@ def main():
                     else: out_filename = 'signal_shapes/ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%s.root'%(width,cat,year,systematic)
                     outfile = ROOT.TFile(out_filename, 'RECREATE')
                     for mass in masses:
-                        if (systematic=="nom"): in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%iGeV.root'%(cat,year,mass)
-                        else: in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%iGeV.root'%(cat,year,systematic,mass)
+                        if (systematic=="nom"): in_filename = 'signal_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%iGeV.root'%(cat,year,mass)
+                        else: in_filename = 'signal_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%iGeV.root'%(cat,year,systematic,mass)
                         infile = ROOT.TFile(in_filename)
                         histo = infile.Get('h_gg_%s'%(width))
                         histo.SetName('h_gg_%s'%(mass))
