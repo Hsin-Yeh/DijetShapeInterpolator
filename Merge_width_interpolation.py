@@ -26,8 +26,8 @@ def main():
             for width in widths:
                 for systematic in systematics:
                     print("Merging %s %s %s %s"%(year, cat, width, systematic))
-                    if (systematic=="nom"): out_filename = 'ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s.root'%(width,cat,year)
-                    else: out_filename = 'ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%s.root'%(width,cat,year,systematic)
+                    if (systematic=="nom"): out_filename = 'signal_shapes/ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s.root'%(width,cat,year)
+                    else: out_filename = 'signal_shapes/ResonanceShapes_InputShapes_RSGravitonToGammaGamma_%s_%s_%s_%s.root'%(width,cat,year,systematic)
                     outfile = ROOT.TFile(out_filename, 'RECREATE')
                     for mass in masses:
                         if (systematic=="nom"): in_filename = 'width_interpolated_shapes/width_InputShapes_RSGravitonToGammaGamma_%s_%s_%iGeV.root'%(cat,year,mass)
