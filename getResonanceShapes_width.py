@@ -42,7 +42,7 @@ def LineShapePDF(shapes, mass, width, histo):
         y = np.array(shapes.shapes[width])
     else:
         input_widthes = shapes.shapes.keys()
-        # print(input_widthes)
+        print(input_widthes)
         min_width = min(input_widthes)
         max_width = max(input_widthes)
         wl = width
