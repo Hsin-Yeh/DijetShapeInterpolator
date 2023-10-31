@@ -66,7 +66,6 @@ def LineShapePDF(shapes, mass, width, histo):
             wh = min([ w for w in input_widthes if w>width ])
         # print(wl,wh)
 
-
         yl = np.array(shapes.shapes[wl])
         yh = np.array(shapes.shapes[wh])
 
