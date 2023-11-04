@@ -51,9 +51,9 @@ def main():
     from ROOT import TFile, TH1F, TH1D
     # open input file
     input_files[0] = TFile(args.narrow_input_file)
-    input_files[1] = TFile(args.wide_input_file)
-    # input_files[1] = TFile(args.medium_input_file)
-    # input_files[2] = TFile(args.wide_input_file)
+    # input_files[1] = TFile(args.wide_input_file)
+    input_files[1] = TFile(args.medium_input_file)
+    input_files[2] = TFile(args.wide_input_file)
 
     nEntries = input_files[0].GetListOfKeys().GetEntries()
 
@@ -78,9 +78,9 @@ def main():
         normbincontents = normbincontents/np.sum(normbincontents)
 
         if iwidth == 0: width = 14
-        elif iwidth == 1: width =5600
-        # elif iwidth == 1: width = 1400
-        # elif iwidth == 2: width = 5600
+        # elif iwidth == 1: width =5600
+        elif iwidth == 1: width = 1400
+        elif iwidth == 2: width = 5600
 
         shapes[width] = normbincontents.tolist()
 
