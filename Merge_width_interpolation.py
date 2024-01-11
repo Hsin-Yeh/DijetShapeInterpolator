@@ -19,7 +19,7 @@ def main():
     else: masses = [args.mass]
 
     if (args.signame=="grav"): signame="RSGravitonToGammaGamma"
-    elif (args.signame=="grav"): signame="GluGluSpin0ToGammaGamma"
+    elif (args.signame=="heavyhiggs"): signame="GluGluSpin0ToGammaGamma"
     cats = ["EBEB","EBEE"]
     years = ["2016","2017","2018"]
     systematics = ["nom","energyScaleStatUp","energyScaleSystUp","energyScaleGainUp","energySigmaUp","energyScaleStatDown","energyScaleSystDown",
